@@ -1,0 +1,15 @@
+:root {
+  --bg: rgba(14, 16, 20, 0.82);
+  --border: rgba(255, 255, 255, 0.08);
+  --text: #e8e6e3;
+  --muted: #8b8f98;
+  --accent: #e8b44a;
+
+  --rune: #5aa9e6;
+  --objective: #c23c2a;
+  --jungle: #6cbf7b;
+  --cycle: #9b8cc4;
+  --manual: #e8b44a;
+
+  --widget-width: 250px;
+}

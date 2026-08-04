@@ -1,0 +1,72 @@
+.rows {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  list-style: none;
+}
+
+.row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 4px 6px;
+  border-left: 2px solid var(--muted);
+  border-radius: 3px;
+}
+
+.row--rune {
+  border-left-color: var(--rune);
+}
+.row--objective {
+  border-left-color: var(--objective);
+}
+.row--jungle {
+  border-left-color: var(--jungle);
+}
+.row--cycle {
+  border-left-color: var(--cycle);
+}
+.row--manual {
+  border-left-color: var(--manual);
+}
+
+.row--imminent {
+  /* --accent at 14% */
+  background: rgba(232, 180, 74, 0.14);
+}
+
+.row--imminent .row__time {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.row__label {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.row__flag {
+  margin-left: 4px;
+  color: var(--muted);
+  cursor: help;
+}
+
+.row__time {
+  display: flex;
+  flex-shrink: 0;
+  gap: 4px;
+  align-items: baseline;
+  font-variant-numeric: tabular-nums;
+}
+
+.row__now {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.row__window {
+  font-size: 10px;
+  color: var(--muted);
+}

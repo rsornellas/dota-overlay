@@ -1,0 +1,26 @@
+.notice {
+  line-height: 1.45;
+}
+
+.notice--error {
+  background: rgba(194, 60, 42, 0.2);
+}
+
+.notice p,
+.notice__steps {
+  margin-top: 4px;
+  color: var(--muted);
+}
+
+.notice__steps {
+  padding-left: 14px;
+}
+
+.notice__warn {
+  color: var(--accent);
+}
+
+.notice code {
+  font-size: 10px;
+  word-break: break-all;
+}

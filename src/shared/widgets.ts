@@ -19,8 +19,26 @@ export const WIDGET_LABELS: Record<WidgetId, string> = {
   status: 'Status'
 }
 
-const WIDGET_WIDTH = 250
+/**
+ * Card width. Mirrored by `--widget-width` in `renderer/src/styles/tokens.css`
+ * — the two are kept in step by `styles/tokens.test.ts`.
+ */
+export const WIDGET_WIDTH = 250
+
+/** Breathing room between a widget and the edge of the screen. */
 const MARGIN = 16
+
+/**
+ * Minimum slice of a widget that has to stay on screen, so it can always be
+ * grabbed and dragged back after a resolution or monitor change.
+ */
+export const GRAB_MARGIN = 60
+
+/**
+ * The bottom edge is more forgiving than the sides: the drag handle sits at
+ * the top of the widget, so less of it has to remain above the fold.
+ */
+const BOTTOM_GRAB_MARGIN = 40
 
 /**
  * Starting position: a column in the top-right corner, away from the HUD and
@@ -58,9 +76,8 @@ export function clampWidget(
   state: WidgetState,
   bounds: { width: number; height: number }
 ): WidgetState {
-  // A generous margin: enough to grab the widget and drag it.
-  const maxX = Math.max(0, bounds.width - 60)
-  const maxY = Math.max(0, bounds.height - 40)
+  const maxX = Math.max(0, bounds.width - GRAB_MARGIN)
+  const maxY = Math.max(0, bounds.height - BOTTOM_GRAB_MARGIN)
 
   return {
     ...state,

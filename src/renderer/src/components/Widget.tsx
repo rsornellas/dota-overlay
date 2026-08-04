@@ -1,5 +1,5 @@
 import { useRef, useState, type PointerEvent, type ReactNode } from 'react'
-import { WIDGET_LABELS, type WidgetId, type WidgetState } from '@shared/widgets'
+import { GRAB_MARGIN, WIDGET_LABELS, type WidgetId, type WidgetState } from '@shared/widgets'
 
 interface WidgetProps {
   id: WidgetId
@@ -7,9 +7,6 @@ interface WidgetProps {
   editing: boolean
   children: ReactNode
 }
-
-/** Minimum slice left on screen: you can always grab the widget back. */
-const EDGE = 60
 
 /**
  * A positionable block. Outside edit mode it is just an absolute container;
@@ -35,8 +32,8 @@ export function Widget({ id, state, editing, children }: WidgetProps) {
   const handlePointerMove = (event: PointerEvent<HTMLDivElement>) => {
     if (!dragging) return
     setDragging({
-      x: clamp(event.clientX - grabOffset.current.x, window.innerWidth - EDGE),
-      y: clamp(event.clientY - grabOffset.current.y, window.innerHeight - EDGE)
+      x: clamp(event.clientX - grabOffset.current.x, window.innerWidth - GRAB_MARGIN),
+      y: clamp(event.clientY - grabOffset.current.y, window.innerHeight - GRAB_MARGIN)
     })
   }
 

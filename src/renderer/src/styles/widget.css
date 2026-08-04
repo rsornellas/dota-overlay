@@ -1,0 +1,45 @@
+.widget {
+  position: absolute;
+  width: var(--widget-width);
+}
+
+/* The alert is as wide as its text: a fixed 250px would clip long phrases. */
+.widget[data-widget='alerts'] {
+  width: auto;
+}
+
+.widget--editing {
+  cursor: grab;
+  /* --accent at 55% */
+  outline: 1px dashed rgba(232, 180, 74, 0.55);
+  outline-offset: 3px;
+  border-radius: 8px;
+}
+
+.widget--dragging {
+  cursor: grabbing;
+  outline-color: var(--accent);
+}
+
+.widget__handle {
+  padding: 2px 6px;
+  margin-bottom: 2px;
+  font-size: 10px;
+  font-weight: 600;
+  color: #14161a;
+  text-align: center;
+  background: var(--accent);
+  border-radius: 3px;
+}
+
+.editbar {
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  padding: 8px 14px;
+  color: var(--accent);
+  background: rgba(14, 16, 20, 0.92);
+  border: 1px solid var(--accent);
+  border-radius: 6px;
+  transform: translateX(-50%);
+}

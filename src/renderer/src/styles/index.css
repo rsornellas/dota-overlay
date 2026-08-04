@@ -1,0 +1,18 @@
+/*
+ * The window covers a whole monitor and is transparent: any opaque background
+ * here becomes a rectangle covering the game. Only the cards have a
+ * background, and even then a translucent one.
+ *
+ * Vite inlines these imports at build time, so the order below IS the cascade.
+ * `base` has to come before everything that overrides the reset — notably
+ * `notice`, whose `.notice p` re-adds the margin `*` just took away.
+ */
+
+@import './tokens.css';
+@import './base.css';
+@import './widget.css';
+@import './card.css';
+@import './alerts.css';
+@import './minimap.css';
+@import './timers.css';
+@import './notice.css';
