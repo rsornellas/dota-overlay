@@ -68,6 +68,7 @@ for (const [name, count] of [...blocks].sort((a, b) => b[1] - a[1])) {
 }
 
 // Requested in the cfg but never delivered: Valve does not expose these to players.
+// prettier-ignore
 const requested = [
   'provider', 'map', 'player', 'hero', 'abilities', 'items', 'buildings',
   'draft', 'wearables', 'minimap', 'events', 'couriers', 'neutralitems', 'roshan'
@@ -116,9 +117,7 @@ if (withMinimap.length === 0) {
 }
 
 // ── Sample of the richest payload, for manual inspection ──────────────────
-const richest = payloads.reduce((a, b) =>
-  Object.keys(b).length > Object.keys(a).length ? b : a
-)
+const richest = payloads.reduce((a, b) => (Object.keys(b).length > Object.keys(a).length ? b : a))
 
 console.log('\nKEYS OF THE RICHEST PAYLOAD')
 console.log('─'.repeat(46))

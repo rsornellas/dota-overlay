@@ -122,9 +122,10 @@ export function trackEnemies(
 
   const visibleNow = new Set(seen.map((h) => h.unitname))
 
+  // The first filter drops leftovers from a previous match: a clock running
+  // backwards is the only signal we get that the match changed.
   return [...byName.values()]
     .map((hero) => (visibleNow.has(hero.unitname) ? hero : { ...hero, visible: false }))
-    // A clock running backwards means a new match: drop the leftovers.
     .filter((hero) => clockTime - hero.lastSeen >= 0)
     .filter((hero) => hero.visible || clockTime - hero.lastSeen <= GHOST_MAX_AGE_SECONDS)
 }

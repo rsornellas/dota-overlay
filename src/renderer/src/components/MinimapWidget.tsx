@@ -85,7 +85,12 @@ function Marker({
  */
 function MapBackground() {
   return (
-    <svg className="minimap__bg" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+    <svg
+      className="minimap__bg"
+      viewBox="0 0 100 100"
+      preserveAspectRatio="none"
+      aria-hidden="true"
+    >
       {/* Team halves, split by the river */}
       <polygon points="0,0 100,100 0,100" fill="#1d2a1c" />
       <polygon points="0,0 100,0 100,100" fill="#2a1c1c" />

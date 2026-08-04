@@ -60,8 +60,8 @@ npm run dist
 
 Two files land in `release/`:
 
-| File                              | What it is                                         |
-| --------------------------------- | -------------------------------------------------- |
+| File                              | What it is                                          |
+| --------------------------------- | --------------------------------------------------- |
 | `Dota Overlay Setup 0.1.0.exe`    | Installer: creates desktop and Start menu shortcuts |
 | `Dota Overlay 0.1.0 portable.exe` | Single file, installs nothing — just double-click   |
 
@@ -138,8 +138,8 @@ Then simply start a match with the app running.
 
 Watch the clock widget in the top-right corner:
 
-| What you see                       | What it means                                    |
-| ---------------------------------- | ------------------------------------------------ |
+| What you see                       | What it means                                     |
+| ---------------------------------- | ------------------------------------------------- |
 | Nothing at all                     | Dota is in exclusive fullscreen (step 4)          |
 | "Waiting for Dota 2…"              | Launch option missing, or Dota not restarted      |
 | "Connected"                        | GSI is flowing; timers appear when the match does |
@@ -155,9 +155,9 @@ current status.
 They work with Dota focused (these are global Windows shortcuts and do not
 interfere with the game).
 
-| Shortcut           | What it does                                          |
-| ------------------ | ----------------------------------------------------- |
-| `Ctrl+Alt+R`       | Roshan died now → starts the 8–11 min window          |
+| Shortcut           | What it does                                           |
+| ------------------ | ------------------------------------------------------ |
+| `Ctrl+Alt+R`       | Roshan died now → starts the 8–11 min window           |
 | `Ctrl+Alt+A`       | Aegis picked up now → counts 5 min                     |
 | `Ctrl+Alt+T`       | Tormentor died now → counts 10 min                     |
 | `Ctrl+Alt+X`       | Clears the marks                                       |
@@ -206,7 +206,7 @@ or to **head up for a rune**.
 of the feature: you can play with a completely clean screen and still be
 reminded of the two things most easily forgotten.
 
-Hence `Ctrl+Alt+H` hides the *panels*, not the window. To make everything
+Hence `Ctrl+Alt+H` hides the _panels_, not the window. To make everything
 disappear, alerts included, use `Ctrl+Alt+Shift+H` (suspend) — which doubles as
 the emergency exit if click-through fails on your machine and the window starts
 swallowing clicks.
@@ -292,10 +292,10 @@ with a counter = where you last saw them, and how long ago.
 Because **Valve filters the data by your vision before sending it**. That is
 not an assumption: it was measured on a real match recorded with this app.
 
-| Heroes                | Frames with a position |
-| --------------------- | ---------------------- |
-| My team (5 heroes)    | 259 of 259             |
-| Enemy team            | 28 of 259              |
+| Heroes             | Frames with a position |
+| ------------------ | ---------------------- |
+| My team (5 heroes) | 259 of 259             |
+| Enemy team         | 28 of 259              |
 
 Enemies only appear in the payload during the moments they were visible on your
 minimap. The game **never** says where someone is inside the fog.

@@ -12,12 +12,7 @@ import { appendFileSync } from 'node:fs'
 import { timingSafeEqual } from 'node:crypto'
 import type { DotaGameState, GsiPayload, OverlayState } from '@shared/gsi-types'
 import { EMPTY_OVERLAY_STATE } from '@shared/gsi-types'
-import {
-  enemyTeamOf,
-  extractEnemyHeroes,
-  trackEnemies,
-  type TrackedHero
-} from '@shared/minimap'
+import { enemyTeamOf, extractEnemyHeroes, trackEnemies, type TrackedHero } from '@shared/minimap'
 
 /** Dota sends far faster than the UI needs to repaint. */
 const EMIT_INTERVAL_MS = 250

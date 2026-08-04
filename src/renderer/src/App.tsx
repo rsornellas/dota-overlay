@@ -22,8 +22,9 @@ export default function App() {
 
   const events = useMemo(
     () => nextEvents({ clockTime: clock, daytime: state.daytime, manual }),
-    // The clock changes 5x a second; rounding avoids pointless recomputation.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // `clock` ticks 5x a second but the schedule only moves once a second, so
+    // the dependency is deliberately the rounded value and not the clock
+    // itself: four of every five ticks recompute nothing.
     [Math.floor(clock), state.daytime, manual]
   )
 

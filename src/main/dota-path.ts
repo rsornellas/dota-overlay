@@ -28,11 +28,10 @@ const FALLBACK_STEAM_DIRS = [
 /** Reads SteamPath from the user's registry hive. */
 function steamPathFromRegistry(): string | null {
   try {
-    const out = execFileSync(
-      'reg',
-      ['query', 'HKCU\\Software\\Valve\\Steam', '/v', 'SteamPath'],
-      { encoding: 'utf8', windowsHide: true }
-    )
+    const out = execFileSync('reg', ['query', 'HKCU\\Software\\Valve\\Steam', '/v', 'SteamPath'], {
+      encoding: 'utf8',
+      windowsHide: true
+    })
     // Shape: "    SteamPath    REG_SZ    c:/program files (x86)/steam"
     const match = out.match(/SteamPath\s+REG_SZ\s+(.+)/i)
     return match ? match[1].trim() : null

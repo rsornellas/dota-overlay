@@ -27,10 +27,10 @@ const MARGIN = 16
  * the minimap. `status` and `timers` never show together (one means "no
  * match", the other "in match"), so they share a spot.
  */
-export function defaultWidgets(bounds: { width: number; height: number }): Record<
-  WidgetId,
-  WidgetState
-> {
+export function defaultWidgets(bounds: {
+  width: number
+  height: number
+}): Record<WidgetId, WidgetState> {
   const right = Math.max(MARGIN, bounds.width - WIDGET_WIDTH - MARGIN)
 
   return {
