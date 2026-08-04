@@ -1,0 +1,31 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    env:
+      # The tests run outside Electron (the store mocks the module), so there
+      # is no reason to download ~100 MB of binary on every run.
+      ELECTRON_SKIP_BINARY_DOWNLOAD: '1'
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - run: npm run typecheck
+
+      # The replay against a real recording skips itself here: there is no
+      # %APPDATA%\dota-overlay\recorded.jsonl on a runner.
+      - run: npm test

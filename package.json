@@ -1,0 +1,43 @@
+{
+  "name": "dota-overlay",
+  "version": "0.1.0",
+  "description": "Real-time Dota 2 overlay built on Valve's official Game State Integration",
+  "private": true,
+  "license": "MIT",
+  "author": "Rafael",
+  "main": "./out/main/index.js",
+  "engines": {
+    "node": ">=20.19"
+  },
+  "scripts": {
+    "dev": "electron-vite dev",
+    "build": "electron-vite build",
+    "start": "electron-vite preview",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "mock": "node scripts/mock-gsi.mjs",
+    "inspect": "node scripts/inspect-gsi.mjs",
+    "icons": "node scripts/make-icon.mjs",
+    "dist": "electron-vite build && electron-builder"
+  },
+  "devDependencies": {
+    "@testing-library/dom": "^10.4.1",
+    "@testing-library/react": "^16.3.2",
+    "@types/node": "^26.1.2",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^5.2.0",
+    "electron": "^43.2.0",
+    "electron-builder": "^26.15.3",
+    "electron-vite": "^5.0.0",
+    "jsdom": "^29.1.1",
+    "typescript": "^7.0.2",
+    "vite": "^7.3.6",
+    "vitest": "^3.2.7"
+  },
+  "dependencies": {
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8"
+  }
+}

@@ -1,0 +1,40 @@
+appId: com.rafael.dota-overlay
+productName: Dota Overlay
+copyright: Personal use
+
+directories:
+  output: release
+  buildResources: build
+
+# Only what the app needs at runtime. Source, tests and devDependencies stay out.
+files:
+  - out/**/*
+  - package.json
+
+# The tray icon lives outside the asar: nativeImage struggles to read from
+# inside it. See the path resolution in src/main/index.ts.
+extraResources:
+  - from: build/tray.png
+    to: tray.png
+
+win:
+  icon: build/icon.ico
+  target:
+    # Installer with shortcuts and an uninstaller.
+    - target: nsis
+      arch: [x64]
+    # Single file, installs nothing.
+    - target: portable
+      arch: [x64]
+
+nsis:
+  oneClick: false
+  perMachine: false
+  allowToChangeInstallationDirectory: true
+  createDesktopShortcut: true
+  createStartMenuShortcut: true
+  shortcutName: Dota Overlay
+  artifactName: ${productName} Setup ${version}.${ext}
+
+portable:
+  artifactName: ${productName} ${version} portable.${ext}
