@@ -11,5 +11,21 @@
   --cycle: #9b8cc4;
   --manual: #e8b44a;
 
+  /*
+   * Enemy tracker. The map colours are a schematic — deliberately not Dota's
+   * art, which would mean reading files out of the game install.
+   */
+  --map-radiant: #1d2a1c;
+  --map-dire: #2a1c1c;
+  --map-river: #2f4f63;
+  --map-lane: #4a4a44;
+  --map-base-radiant: #3f6b34;
+  --map-base-dire: #8c3a2c;
+
+  --self: #6cd0f5;
+  --enemy: #b8342a;
+  --enemy-live: #e8412f;
+  --ghost: #ffd9a0;
+
   --widget-width: 250px;
 }

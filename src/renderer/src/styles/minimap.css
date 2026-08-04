@@ -28,6 +28,31 @@
   text-align: center;
 }
 
+/* Schematic map. Geometry lives in the SVG; only colour is set here. */
+.minimap__half--radiant {
+  fill: var(--map-radiant);
+}
+
+.minimap__half--dire {
+  fill: var(--map-dire);
+}
+
+.minimap__river {
+  stroke: var(--map-river);
+}
+
+.minimap__lanes {
+  stroke: var(--map-lane);
+}
+
+.minimap__base--radiant {
+  fill: var(--map-base-radiant);
+}
+
+.minimap__base--dire {
+  fill: var(--map-base-dire);
+}
+
 .pin {
   position: absolute;
   display: flex;
@@ -40,7 +65,7 @@
 .pin--self {
   width: 9px;
   height: 9px;
-  background: #6cd0f5;
+  background: var(--self);
   border: 1px solid rgba(0, 0, 0, 0.7);
   border-radius: 50%;
 }
@@ -51,15 +76,16 @@
   font-weight: 700;
   line-height: 1.1;
   color: #fff;
-  background: #b8342a;
+  background: var(--enemy);
   border: 1px solid rgba(0, 0, 0, 0.75);
   border-radius: 3px;
 }
 
 /* Visible right now: bright outline to separate it from a ghost. */
 .pin--enemy.pin--live .pin__name {
-  background: #e8412f;
-  border-color: #ffd9a0;
+  background: var(--enemy-live);
+  border-color: var(--ghost);
+  /* --enemy-live at 90% */
   box-shadow: 0 0 4px rgba(232, 65, 47, 0.9);
 }
 
@@ -67,6 +93,6 @@
   margin-top: 1px;
   font-size: 8px;
   line-height: 1;
-  color: #ffd9a0;
+  color: var(--ghost);
   text-shadow: 0 1px 2px #000;
 }

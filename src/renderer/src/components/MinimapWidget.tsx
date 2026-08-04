@@ -92,22 +92,22 @@ function MapBackground() {
       aria-hidden="true"
     >
       {/* Team halves, split by the river */}
-      <polygon points="0,0 100,100 0,100" fill="#1d2a1c" />
-      <polygon points="0,0 100,0 100,100" fill="#2a1c1c" />
+      <polygon className="minimap__half--radiant" points="0,0 100,100 0,100" />
+      <polygon className="minimap__half--dire" points="0,0 100,0 100,100" />
 
       {/* River, along the anti-diagonal */}
-      <line x1="0" y1="0" x2="100" y2="100" stroke="#2f4f63" strokeWidth="7" />
+      <line className="minimap__river" x1="0" y1="0" x2="100" y2="100" strokeWidth="7" />
 
       {/* Lanes: top, mid and bottom */}
-      <g stroke="#4a4a44" strokeWidth="2.5" fill="none" strokeLinecap="round">
+      <g className="minimap__lanes" strokeWidth="2.5" fill="none" strokeLinecap="round">
         <path d="M 8 88 L 8 12 L 88 12" />
         <path d="M 12 88 L 88 12" />
         <path d="M 12 92 L 88 92 L 88 16" />
       </g>
 
       {/* Bases */}
-      <circle cx="8" cy="92" r="4" fill="#3f6b34" />
-      <circle cx="92" cy="8" r="4" fill="#8c3a2c" />
+      <circle className="minimap__base--radiant" cx="8" cy="92" r="4" />
+      <circle className="minimap__base--dire" cx="92" cy="8" r="4" />
     </svg>
   )
 }
