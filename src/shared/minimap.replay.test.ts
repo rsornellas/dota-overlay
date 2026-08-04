@@ -19,7 +19,12 @@ import {
   type TrackedHero
 } from './minimap'
 
-const RECORDING = join(process.env.APPDATA ?? '', 'dota-overlay', 'recorded.jsonl')
+// No APPDATA means no Windows, which means no recording. Resolving it to a
+// relative path instead would make the miss look like a missing file in the
+// repo — which is exactly how this used to fail on CI.
+const RECORDING = process.env.APPDATA
+  ? join(process.env.APPDATA, 'dota-overlay', 'recorded.jsonl')
+  : null
 
 interface Frame {
   map?: { clock_time?: number; matchid?: string }
@@ -27,8 +32,8 @@ interface Frame {
   minimap?: Record<string, unknown>
 }
 
-function loadFrames(): Frame[] {
-  return readFileSync(RECORDING, 'utf8')
+function loadFrames(path: string): Frame[] {
+  return readFileSync(path, 'utf8')
     .split('\n')
     .filter(Boolean)
     .flatMap((line) => {
@@ -68,11 +73,13 @@ function replay(frames: Frame[]) {
   return { tracked, everSeen, ghostFrames, visibleFrames, maxSimultaneous }
 }
 
-const hasRecording = existsSync(RECORDING)
-const maybe = hasRecording ? describe : describe.skip
+const maybe = RECORDING && existsSync(RECORDING) ? describe : describe.skip
 
 maybe('replay against a real recording', () => {
-  const frames = loadFrames()
+  // `describe.skip` still runs this callback — that is how the suite gets
+  // collected before being marked skipped. So the read has to be guarded here
+  // too, not just by picking `describe.skip` above.
+  const frames = RECORDING && existsSync(RECORDING) ? loadFrames(RECORDING) : []
 
   it('the recording has usable frames', () => {
     expect(frames.length).toBeGreaterThan(0)
