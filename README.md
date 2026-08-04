@@ -1,5 +1,7 @@
 # dota-overlay
 
+[![CI](https://github.com/rsornellas/dota-overlay/actions/workflows/ci.yml/badge.svg)](https://github.com/rsornellas/dota-overlay/actions/workflows/ci.yml)
+
 A real-time overlay for Dota 2, built on Valve's **official Game State
 Integration**.
 
@@ -8,8 +10,42 @@ neutral items, day/night), calls them out by voice and by an on-screen flash
 when it is time to pull or head up for a rune, and tracks the last known
 position of enemies you have already seen.
 
+- **Map timers** — runes, lotus, wisdom, neutral item tiers, stack and pull
+  windows, day/night, all derived from the clock on your own HUD.
+- **Voice callouts** — the Windows speech synthesiser, nothing downloaded,
+  silent outside a match and while the game is paused.
+- **Visual alerts** — a brief flash for pull and runes, which keeps firing even
+  with the panels hidden.
+- **Enemy tracker** — the last position of every enemy you have already seen,
+  faded with a counter once they leave your vision.
+- **Manual marks** — a shortcut for Roshan, Aegis and Tormentor, saved with the
+  `matchid` so they survive a restart mid-match.
+- **Draggable layout** — every block positioned wherever you want, stored in
+  `%APPDATA%` so it outlives reinstalling the app.
+
 **In a hurry?** Jump to [Setup](#setup) — five steps, and the GSI file writes
 itself.
+
+**Nothing is injected into the game.** No memory reading, no DirectX hooking,
+no modified files, no screen capture — see [Why this is not
+cheating](#why-this-is-not-cheating).
+
+## Contents
+
+- [Why this is not cheating](#why-this-is-not-cheating)
+- [Setup](#setup)
+- [Shortcuts](#shortcuts)
+- [Customisable layout](#customisable-layout)
+- [Visual alerts](#visual-alerts)
+- [Voice alerts](#voice-alerts)
+- [Enemy tracker](#enemy-tracker)
+- [About lotus](#about-lotus)
+- [Validating the timings](#validating-the-timings)
+- [Development](#development)
+- [Structure](#structure)
+- [Troubleshooting](#troubleshooting)
+- [Security](#security)
+- [License](#license)
 
 ---
 
@@ -287,7 +323,7 @@ opacity and the master switches are preserved** — only the cues are reseeded.
 Keeps the last known position of every enemy hero. Solid = visible now; faded
 with a counter = where you last saw them, and how long ago.
 
-### Why this is not cheating
+### Why the tracker is not cheating either
 
 Because **Valve filters the data by your vision before sending it**. That is
 not an assumption: it was measured on a real match recorded with this app.
@@ -379,13 +415,23 @@ To check:
 
 ```bash
 npm run dev        # app in development mode
-npm test           # 155 tests (timers, alerts, tracker, widgets, VDF, server, store, UI)
+npm test           # 156 tests (timers, alerts, tracker, widgets, VDF, server, store, UI)
 npm run inspect    # report on the recorded payloads
 npm run typecheck
+npm run format     # Prettier over the repo (format:check just reports)
 npm run build      # compiles to out/
 npm run dist       # compiles and produces the .exe files in release/
 npm run icons      # regenerates build/tray.png, icon.png and icon.ico
 ```
+
+CI runs `format:check`, `typecheck`, `test` and `build` on every push and pull
+request.
+
+> **No ESLint, for now.** `@typescript-eslint/parser` caps its `typescript`
+> peer dependency below 6 and this project is on 7, so adding it today means an
+> `ERESOLVE` on `npm ci`. `tsc --noEmit` runs with `strict`, `noUnusedLocals`
+> and `noUnusedParameters`, which covers most of what a default config would
+> flag. Worth revisiting once the parser supports TypeScript 7.
 
 Icons are drawn in code by
 [`scripts/make-icon.mjs`](scripts/make-icon.mjs) — PNG and ICO assembled by hand
@@ -419,18 +465,27 @@ src/
 │  ├─ timings.ts    ★ the single source of patch numbers
 │  ├─ schedule.ts   ★ (clock, marks) → upcoming events
 │  ├─ cues.ts       ★ (events, config, already fired) → what to announce now
+│  ├─ minimap.ts    ★ (sightings, ghosts) → where the enemies are
 │  ├─ voice.ts      speech configuration and defaults
 │  ├─ notify.ts     visual alert configuration and defaults
-│  ├─ minimap.ts    ★ (sightings, ghosts) → where the enemies are
-│  ├─ widgets.ts    default positions and on-screen clamping
+│  ├─ widgets.ts    default positions, geometry constants, clamping
+│  ├─ format.ts     clock and countdown formatting
+│  ├─ ipc.ts        the channel names, in one place
 │  └─ gsi-types.ts  types for Dota's payload
 ├─ main/            Electron process
+│  ├─ index.ts      tray, shortcuts, wiring
 │  ├─ gsi-server.ts HTTP server receiving the POSTs
 │  ├─ dota-path.ts  installation discovery (registry + VDF)
+│  ├─ vdf.ts        parser for Valve's config format
 │  ├─ gsi-config.ts cfg installation
 │  ├─ store.ts      settings and session in %APPDATA%
 │  └─ overlay-window.ts  transparent, click-through window
+├─ preload/         the contextBridge surface (window.overlay)
 └─ renderer/        React UI
+   └─ src/
+      ├─ components/  one file per widget
+      ├─ hooks/       IPC subscription, speech, alert lifetimes
+      └─ styles/      one file per section, chained from index.css
 ```
 
 `schedule.ts` and `cues.ts` are pure functions: no `Date.now()`, no global
